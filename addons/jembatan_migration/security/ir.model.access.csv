@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_batch_manager,jembatan.migration.batch manager,model_jembatan_migration_batch,group_migration_manager,1,1,1,1
+access_log_manager,jembatan.migration.log manager,model_jembatan_migration_log,group_migration_manager,1,1,1,1
+access_wizard_manager,jembatan.import.wizard manager,model_jembatan_import_wizard,group_migration_manager,1,1,1,1

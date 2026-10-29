@@ -1,0 +1,13 @@
+; Salin menjadi config/odoo.conf lalu ganti admin_passwd.
+; Koneksi database diisi Docker lewat variabel HOST, USER, PASSWORD di docker-compose.yml.
+[options]
+addons_path = /mnt/extra-addons
+data_dir = /var/lib/odoo
+; Password master untuk mengelola database lewat /web/database. Wajib diganti.
+admin_passwd = ganti-password-master
+db_name = pindah
+dbfilter = ^pindah$
+list_db = False
+without_demo = True
+; Aktifkan di server produksi yang berada di belakang Nginx (docs/deploy.md).
+proxy_mode = False

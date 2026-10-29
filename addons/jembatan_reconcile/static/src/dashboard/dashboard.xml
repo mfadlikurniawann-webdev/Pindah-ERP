@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="jembatan_reconcile.MigrationDashboard">
+        <Layout display="{ controlPanel: {} }">
+            <div class="o_jembatan_dashboard container-fluid py-3" t-if="state.data">
+                <div class="row g-3">
+                    <div class="col-lg-5">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong>Batch terakhir per entitas</strong>
+                                <button class="btn btn-link btn-sm" t-on-click="openBatches">Semua batch</button>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li t-if="!state.data.batches.length" class="list-group-item text-muted">
+                                    Belum ada batch. Jalankan ETL dulu.
+                                </li>
+                                <li t-foreach="state.data.batches" t-as="batch" t-key="batch.id"
+                                    class="list-group-item d-flex justify-content-between">
+                                    <span t-esc="batch.entity_label"/>
+                                    <span>
+                                        <span t-if="batch.error_count" class="me-2 text-danger">
+                                            <t t-esc="batch.error_count"/> galat
+                                        </span>
+                                        <span class="badge" t-att-class="batchClass(batch)" t-esc="batch.state_label"/>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <strong t-if="state.data.run" t-esc="state.data.run.name"/>
+                                <strong t-else="">Belum ada rekonsiliasi</strong>
+                                <span>
+                                    <button t-if="state.data.run" class="btn btn-link btn-sm" t-on-click="openRun">Rincian</button>
+                                    <button class="btn btn-primary btn-sm" t-on-click="newRun">Rekonsiliasi baru</button>
+                                </span>
+                            </div>
+                            <table class="table mb-0" t-if="state.data.kinds.length">
+                                <thead>
+                                    <tr>
+                                        <th>Jenis</th>
+                                        <th class="text-end">Baris</th>
+                                        <th class="text-end">Tidak cocok</th>
+                                        <th class="text-end">Total selisih</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="state.data.kinds" t-as="kind" t-key="kind.kind"
+                                        t-att-class="kind.mismatch ? 'table-danger' : 'table-success'">
+                                        <td t-esc="kind.label"/>
+                                        <td class="text-end" t-esc="kind.total"/>
+                                        <td class="text-end" t-esc="kind.mismatch"/>
+                                        <td class="text-end" t-esc="formatAmount(kind.difference)"/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div t-else="" class="card-body text-muted">
+                                Muat saldo Accurate, lalu buat rekonsiliasi untuk tanggal cutoff.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Layout>
+    </t>
+</templates>

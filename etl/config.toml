@@ -1,0 +1,46 @@
+# Konfigurasi ETL Accurate -> Odoo.
+# Rahasia (URL, database, API key) TIDAK di sini, tapi di berkas .env di akar repo.
+
+[source]
+folder = "../sample_data/accurate_export"
+delimiter = ";"
+date_format = "%d/%m/%Y"
+
+[company]
+# Tanggal saldo awal: hari terakhir sebelum Odoo dipakai (BR-SALDO-01).
+cutoff_date = "2026-09-30"
+# Akun penampung: lawan jurnal saldo awal dan faktur terbuka. Harus nol di akhir (BR-SALDO-03).
+suspense_account_code = "399999"
+receivable_account_code = "110201"
+payable_account_code = "210101"
+
+# Akun yang tidak ada di Accurate tapi dibutuhkan migrasi.
+[extra_accounts.399999]
+name = "Penampung Saldo Awal Migrasi"
+type = "Ekuitas"
+
+# Tipe Akun Accurate -> account_type Odoo 19.
+[account_types]
+"Kas/Bank" = "asset_cash"
+"Piutang Usaha" = "asset_receivable"
+"Persediaan" = "asset_current"
+"Aktiva Lancar Lainnya" = "asset_current"
+"Aktiva Tetap" = "asset_fixed"
+"Akumulasi Penyusutan" = "asset_fixed"
+"Aktiva Lainnya" = "asset_non_current"
+"Hutang Usaha" = "liability_payable"
+"Hutang Lancar Lainnya" = "liability_current"
+"Hutang Jangka Panjang" = "liability_non_current"
+"Ekuitas" = "equity"
+"Pendapatan" = "income"
+"Beban Pokok Penjualan" = "expense_direct_cost"
+"Beban" = "expense"
+"Pendapatan Lain" = "income_other"
+"Beban Lain" = "expense_other"
+
+# Satuan Accurate (huruf besar) -> XML ID satuan Odoo.
+[uom]
+"KG" = "uom.product_uom_kgm"
+"PCS" = "uom.product_uom_unit"
+"UNIT" = "uom.product_uom_unit"
+"LITER" = "uom.product_uom_litre"

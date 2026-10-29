@@ -1,0 +1,20 @@
+# Rahasia lokal: salin dari *.example
+.env
+config/odoo.conf
+
+# Hasil ETL, dibuat ulang setiap transform
+etl/build/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Editor dan OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

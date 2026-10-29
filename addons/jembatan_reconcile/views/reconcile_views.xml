@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_reconcile_run_list" model="ir.ui.view">
+        <field name="name">jembatan.reconcile.run.list</field>
+        <field name="model">jembatan.reconcile.run</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'match'" decoration-danger="state == 'mismatch'">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="match_count"/>
+                <field name="mismatch_count"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'match'" decoration-danger="state == 'mismatch'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_reconcile_run_form" model="ir.ui.view">
+        <field name="name">jembatan.reconcile.run.form</field>
+        <field name="model">jembatan.reconcile.run</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_compute" type="object" string="Hitung" class="btn-primary"/>
+                    <button name="action_print" type="object" string="Cetak PDF" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="match_count"/>
+                            <field name="mismatch_count"/>
+                        </group>
+                    </group>
+                    <field name="line_ids">
+                        <list decoration-danger="status != 'match'" decoration-muted="status == 'match'">
+                            <field name="kind"/>
+                            <field name="key"/>
+                            <field name="label"/>
+                            <field name="source_amount" sum="Total"/>
+                            <field name="odoo_amount" sum="Total"/>
+                            <field name="difference" sum="Total"/>
+                            <field name="status" widget="badge"
+                                   decoration-success="status == 'match'" decoration-danger="status != 'match'"/>
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_reconcile_line_search" model="ir.ui.view">
+        <field name="name">jembatan.reconcile.line.search</field>
+        <field name="model">jembatan.reconcile.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="key"/>
+                <filter name="not_match" string="Tidak cocok" domain="[('status', '!=', 'match')]"/>
+                <group>
+                    <filter name="group_kind" string="Jenis" context="{'group_by': 'kind'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_source_balance_list" model="ir.ui.view">
+        <field name="name">jembatan.source.balance.list</field>
+        <field name="model">jembatan.source.balance</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="kind"/>
+                <field name="key"/>
+                <field name="label"/>
+                <field name="amount" sum="Total"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_reconcile_run" model="ir.actions.act_window">
+        <field name="name">Rekonsiliasi</field>
+        <field name="res_model">jembatan.reconcile.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_source_balance" model="ir.actions.act_window">
+        <field name="name">Saldo Accurate</field>
+        <field name="res_model">jembatan.source.balance</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="action_reconcile_dashboard" model="ir.actions.client">
+        <field name="name">Ringkasan Migrasi</field>
+        <field name="tag">jembatan_reconcile.dashboard</field>
+    </record>
+</odoo>

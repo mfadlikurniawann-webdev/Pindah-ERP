@@ -1,0 +1,21 @@
+No. Akun;Nama Akun;Tipe Akun
+110101;Kas Kecil;Kas/Bank
+110102;Bank BCA;Kas/Bank
+110201;Piutang Usaha;Piutang Usaha
+110301;Persediaan Bahan Baku;Persediaan
+110302;Persediaan Barang Jadi;Persediaan
+110303;Persediaan Bahan Kemasan;Persediaan
+110401;PPN Masukan;Aktiva Lancar Lainnya
+120101;Mesin Produksi;Aktiva Tetap
+120201;Akumulasi Penyusutan Mesin;Akumulasi Penyusutan
+210101;Hutang Usaha;Hutang Usaha
+210201;PPN Keluaran;Hutang Lancar Lainnya
+210301;Hutang PPh 21;Hutang Lancar Lainnya
+310101;Modal Disetor;Ekuitas
+320101;Laba Ditahan;Ekuitas
+410101;Penjualan;Pendapatan
+510101;Harga Pokok Penjualan;Beban Pokok Penjualan
+610101;Beban Gaji;Beban
+610201;Beban Listrik dan Air;Beban
+710101;Pendapatan Bunga Bank;Pendapatan Lain
+810101;Beban Administrasi Bank;Beban Lain

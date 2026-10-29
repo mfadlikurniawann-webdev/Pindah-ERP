@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_reconcile_dashboard" parent="jembatan_migration.menu_jembatan_root"
+              sequence="5" action="action_reconcile_dashboard"/>
+    <menuitem id="menu_reconcile_run" parent="jembatan_migration.menu_jembatan_root"
+              sequence="30" action="action_reconcile_run"/>
+    <menuitem id="menu_source_balance" parent="jembatan_migration.menu_jembatan_root"
+              sequence="40" action="action_source_balance"/>
+</odoo>

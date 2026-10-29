@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_reconcile" model="ir.actions.report">
+        <field name="name">Laporan Rekonsiliasi Migrasi</field>
+        <field name="model">jembatan.reconcile.run</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">jembatan_reconcile.report_reconcile</field>
+        <field name="report_file">jembatan_reconcile.report_reconcile</field>
+        <field name="print_report_name">'Rekonsiliasi - %s' % object.date</field>
+        <field name="binding_model_id" ref="model_jembatan_reconcile_run"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="report_reconcile">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="run">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2>Laporan Rekonsiliasi Migrasi</h2>
+                        <p>
+                            Perbandingan saldo Accurate dan Odoo per
+                            <strong t-field="run.date"/>.
+                            Semua angka memakai tanda debit dikurangi kredit.
+                        </p>
+                        <table class="table table-sm o_main_table mb-4">
+                            <thead>
+                                <tr>
+                                    <th>Jenis</th>
+                                    <th class="text-end">Baris</th>
+                                    <th class="text-end">Cocok</th>
+                                    <th class="text-end">Tidak cocok</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="run.get_report_summary()" t-as="row">
+                                    <td><span t-esc="row['label']"/></td>
+                                    <td class="text-end"><span t-esc="row['total']"/></td>
+                                    <td class="text-end"><span t-esc="row['total'] - row['mismatch']"/></td>
+                                    <td class="text-end"><span t-esc="row['mismatch']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <t t-set="bad_lines" t-value="run.line_ids.filtered(lambda l: l.status != 'match')"/>
+                        <h4>Rincian yang tidak cocok</h4>
+                        <p t-if="not bad_lines">Semua baris cocok.</p>
+                        <table t-if="bad_lines" class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th>Jenis</th>
+                                    <th>Kunci</th>
+                                    <th>Keterangan</th>
+                                    <th class="text-end">Accurate</th>
+                                    <th class="text-end">Odoo</th>
+                                    <th class="text-end">Selisih</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="bad_lines" t-as="line">
+                                    <td><span t-field="line.kind"/></td>
+                                    <td><span t-field="line.key"/></td>
+                                    <td><span t-field="line.label"/></td>
+                                    <td class="text-end"><span t-esc="'{:,.2f}'.format(line.source_amount)"/></td>
+                                    <td class="text-end"><span t-esc="'{:,.2f}'.format(line.odoo_amount)"/></td>
+                                    <td class="text-end"><strong t-esc="'{:,.2f}'.format(line.difference)"/></td>
+                                    <td><span t-field="line.status"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row mt-5">
+                            <div class="col-6 text-center">
+                                <p>Disiapkan oleh</p>
+                                <p class="mt-5">( ............................ )</p>
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>Disetujui Finance</p>
+                                <p class="mt-5">( ............................ )</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

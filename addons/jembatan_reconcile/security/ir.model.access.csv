@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_source_balance_manager,jembatan.source.balance manager,model_jembatan_source_balance,jembatan_migration.group_migration_manager,1,1,1,1
+access_reconcile_run_manager,jembatan.reconcile.run manager,model_jembatan_reconcile_run,jembatan_migration.group_migration_manager,1,1,1,1
+access_reconcile_line_manager,jembatan.reconcile.line manager,model_jembatan_reconcile_line,jembatan_migration.group_migration_manager,1,1,1,1

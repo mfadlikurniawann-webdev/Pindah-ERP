@@ -1,0 +1,7 @@
+# Skrip shell dijalankan di dalam kontainer Linux. Akhir baris CRLF dari Windows
+# membuat bash gagal, jadi paksa LF apa pun pengaturan Git di laptop.
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+Makefile text eol=lf
+*.png binary

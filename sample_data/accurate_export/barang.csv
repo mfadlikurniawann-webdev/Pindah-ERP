@@ -1,0 +1,9 @@
+No. Barang;Nama Barang;Kategori;Satuan;Harga Jual;Jenis Barang
+BB-001;Biji Kopi Robusta Mentah;Bahan Baku;KG;0,00;Persediaan
+BB-002;Biji Kopi Arabika Mentah;Bahan Baku;Kg;0,00;Persediaan
+KM-001;Standing Pouch 250 g;Bahan Kemasan;PCS;0,00;Persediaan
+KM-002;Standing Pouch 1 kg;Bahan Kemasan;Pcs;0,00;Persediaan
+BJ-001;Kopi Bubuk Robusta 250 g;Barang Jadi;PCS;32.000,00;Persediaan
+BJ-002;Kopi Bubuk Arabika 250 g;Barang Jadi;PCS;55.000,00;Persediaan
+BJ-003;Kopi Bubuk Robusta 1 kg;Barang Jadi;PCS;115.000,00;Persediaan
+JS-001;Jasa Sangrai Maklon;Jasa;KG;15.000,00;Non Persediaan

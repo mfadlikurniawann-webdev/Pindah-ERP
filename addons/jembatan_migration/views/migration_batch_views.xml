@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_migration_batch_list" model="ir.ui.view">
+        <field name="name">jembatan.migration.batch.list</field>
+        <field name="model">jembatan.migration.batch</field>
+        <field name="arch" type="xml">
+            <list create="false"
+                  decoration-success="state == 'done'"
+                  decoration-warning="state == 'partial'"
+                  decoration-danger="state == 'failed'">
+                <field name="name"/>
+                <field name="entity"/>
+                <field name="dry_run" widget="boolean_toggle" readonly="1"/>
+                <field name="row_count"/>
+                <field name="created_count"/>
+                <field name="updated_count"/>
+                <field name="skipped_count"/>
+                <field name="error_count"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'done'"
+                       decoration-warning="state == 'partial'"
+                       decoration-danger="state == 'failed'"/>
+                <field name="user_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_migration_batch_form" model="ir.ui.view">
+        <field name="name">jembatan.migration.batch.form</field>
+        <field name="model">jembatan.migration.batch</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="entity"/>
+                            <field name="dry_run"/>
+                            <field name="user_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="row_count"/>
+                            <field name="created_count"/>
+                            <field name="updated_count"/>
+                            <field name="skipped_count"/>
+                            <field name="error_count"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Log" name="log">
+                            <field name="log_ids">
+                                <list decoration-danger="level == 'error'" decoration-warning="level == 'warning'">
+                                    <field name="level"/>
+                                    <field name="source_ref"/>
+                                    <field name="message"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_migration_batch_search" model="ir.ui.view">
+        <field name="name">jembatan.migration.batch.search</field>
+        <field name="model">jembatan.migration.batch</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="entity"/>
+                <filter name="has_error" string="Ada galat" domain="[('error_count', '&gt;', 0)]"/>
+                <filter name="real_run" string="Bukan uji coba" domain="[('dry_run', '=', False)]"/>
+                <group>
+                    <filter name="group_entity" string="Entitas" context="{'group_by': 'entity'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_migration_batch" model="ir.actions.act_window">
+        <field name="name">Batch Migrasi</field>
+        <field name="res_model">jembatan.migration.batch</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Belum ada batch migrasi.</p>
+            <p>Jalankan ETL dari terminal, atau unggah berkas JSON hasil ETL lewat menu Impor Berkas.</p>
+        </field>
+    </record>
+</odoo>

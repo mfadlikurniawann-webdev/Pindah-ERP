@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_jembatan_root" name="Migrasi" sequence="90"
+              groups="group_migration_manager"
+              web_icon="jembatan_migration,static/description/icon.png"/>
+    <menuitem id="menu_migration_batch" parent="menu_jembatan_root" sequence="10"
+              action="action_migration_batch"/>
+    <menuitem id="menu_import_wizard" parent="menu_jembatan_root" sequence="20"
+              action="action_import_wizard"/>
+</odoo>

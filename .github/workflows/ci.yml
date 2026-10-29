@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  etl:
+    name: Lint dan test ETL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r etl/requirements-dev.txt
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: python -m pytest -q
+      - name: Transform data contoh tanpa temuan fatal
+        working-directory: etl
+        run: python -m pindah_etl transform
+
+  odoo:
+    name: Test modul Odoo 19
+    runs-on: ubuntu-latest
+    container:
+      image: odoo:19.0
+      options: --user root
+    services:
+      db:
+        image: postgres:16
+        env:
+          POSTGRES_USER: odoo
+          POSTGRES_PASSWORD: odoo
+          POSTGRES_DB: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pasang modul dan jalankan test
+        run: |
+          odoo -d ci --db_host db --db_user odoo --db_password odoo \
+            --addons-path=/usr/lib/python3/dist-packages/odoo/addons,$GITHUB_WORKSPACE/addons \
+            -i jembatan_reconcile --test-tags /jembatan_migration,/jembatan_reconcile \
+            --stop-after-init --no-http 2>&1 | tee test.log
+          # Odoo bisa keluar dengan kode 0 walau ada test gagal, jadi periksa ringkasannya.
+          grep -q "0 failed, 0 error(s)" test.log

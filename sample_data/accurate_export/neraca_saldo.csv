@@ -1,0 +1,21 @@
+No. Akun;Nama Akun;Debit;Kredit
+110101;Kas Kecil;4.750.000,00;0,00
+110102;Bank BCA;186.420.000,00;0,00
+110201;Piutang Usaha;44.210.000,00;0,00
+110301;Persediaan Bahan Baku;67.750.000,00;0,00
+110302;Persediaan Barang Jadi;48.450.000,00;0,00
+110303;Persediaan Bahan Kemasan;11.100.000,00;0,00
+110401;PPN Masukan;3.260.000,00;0,00
+120101;Mesin Produksi;350.000.000,00;0,00
+120201;Akumulasi Penyusutan Mesin;0,00;87.500.000,00
+210101;Hutang Usaha;0,00;51.740.000,00
+210201;PPN Keluaran;0,00;9.840.000,00
+210301;Hutang PPh 21;0,00;2.150.000,00
+310101;Modal Disetor;0,00;400.000.000,00
+320101;Laba Ditahan;0,00;7.650.000,00
+410101;Penjualan;0,00;742.500.000,00
+510101;Harga Pokok Penjualan;438.600.000,00;0,00
+610101;Beban Gaji;126.000.000,00;0,00
+610201;Beban Listrik dan Air;21.600.000,00;0,00
+710101;Pendapatan Bunga Bank;0,00;1.120.000,00
+810101;Beban Administrasi Bank;360.000,00;0,00

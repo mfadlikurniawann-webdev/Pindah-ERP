@@ -1,0 +1,3 @@
+# ETL hanya memakai pustaka standar Python 3.11+. Berkas ini untuk pengembangan saja.
+pytest>=8
+ruff>=0.6

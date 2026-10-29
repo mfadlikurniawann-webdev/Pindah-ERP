@@ -1,0 +1,26 @@
+{
+    "name": "Jembatan: Migrasi Accurate ke Odoo",
+    "summary": "Impor master data, saldo awal, piutang/hutang, dan stok awal dari ekspor Accurate",
+    "version": "19.0.1.0.0",
+    "category": "Accounting/Accounting",
+    "author": "Pindah-ERP",
+    "website": "https://github.com/mfadlikurniawann-webdev/Pindah-ERP",
+    "license": "LGPL-3",
+    "depends": [
+        "account",
+        "stock_account",
+        "mrp",
+        "sale_stock",
+        "purchase_stock",
+        "l10n_id_efaktur_coretax",
+    ],
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "views/migration_batch_views.xml",
+        "wizard/import_wizard_views.xml",
+        "views/menu.xml",
+    ],
+    "installable": True,
+    "application": True,
+}
